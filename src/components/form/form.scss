@@ -3,7 +3,7 @@ body {
 }
 button {
 	padding: 0.5rem;
-	margin-left: 1.3rem;
+	margin: 0.5rem;
 	cursor: pointer;
 	align-items: center;
 }
@@ -36,5 +36,9 @@ button:focus {
 }
 ul {
 	list-style-type: none;
-	border: 2px groove black;
+	border: 2px solid black;
+	margin: 1rem auto;
+}
+form {
+	margin: 0 1.2rem;
 }

@@ -11,27 +11,6 @@ class Form extends React.Component {
 		};
 	}
 
-	getApiResults = async (route) => {
-		const url = this.state.url;
-		let headers = {};
-		const apiResults = await fetch(url, { method: route, mode: 'cors' }).then((response) => {
-			// or let data = await apiResults.json();
-			if (response.status !== 200) return;
-			for (let pair of response.headers.entries()) {
-				headers[pair[0]] = pair[1];
-				// this.setState({ headers: headers});
-			}
-			return response.json();
-		});
-		// console.log('API RESULTS on FORM:', apiResults, headers);
-		this.props.returnApiResults(apiResults, headers);
-	};
-
-	handleURL = (e) => {
-		let url = e.target.value;
-		this.setState({ url });
-	};
-
 	handleMethod = (e) => {
 		e.preventDefault();
 		let method = e.target.value;
@@ -41,33 +20,34 @@ class Form extends React.Component {
 	handleSubmit = (e) => {
 		e.preventDefault();
 		let history = this.state.history;
-		history.push(`${this.state.method}:${this.state.url}`);
+		history.push(`${this.state.method}: ${this.state.url}`);
 		this.setState({ history });
 	};
 
 	render() {
-		const history = this.state.history.map((potato) => <li>{potato}</li>);
+		const history = this.state.history.map((item, index) => <li key={index}>{item}</li>);
 		return (
 			<section>
 				<div>
-					<h2>
-						<input type="text" placeholder="Enter your URL" onChange={this.handleURL} />
+					<form>
+						<input type="text" placeholder="Enter your URL" onChange={(e) => this.setState({ url: e.target.value })} />
 						<button onClick={this.handleSubmit}>Send</button>
-					</h2>
-
-					<button className="rest-b" onClick={this.handleMethod} value="GET">
+					</form>
+					<button className="rest-b" onClick={this.handleMethod} value="Get">
 						GET
 					</button>
-					<button className="rest-b" onClick={this.handleMethod} value="POST">
+					<button className="rest-b" onClick={this.handleMethod} value="Post">
 						POST
 					</button>
-					<button className="rest-b" onClick={this.handleMethod} value="PUT">
+					<button className="rest-b" onClick={this.handleMethod} value="Put">
 						PUT
 					</button>
-					<button className="rest-b" onClick={this.handleMethod} value="DELETE">
+					<button className="rest-b" onClick={this.handleMethod} value="Delete">
 						DELETE
 					</button>
-					<ul>{history}</ul>
+					<div>
+						<ul>{history}</ul>
+					</div>
 				</div>
 			</section>
 		);
