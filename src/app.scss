@@ -1,0 +1,18 @@
+body {
+	background-color: black;
+	margin: auto;
+	width: 35%;
+}
+
+#root {
+	border: 5px solid black;
+	border-radius: 2rem;
+	background-color: white;
+
+	section {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		padding: 2rem;
+	}
+}
