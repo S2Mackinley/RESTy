@@ -11,18 +11,34 @@ class Form extends React.Component {
 		};
 	}
 
+	getApiResults = async (route) => {
+		const url = this.state.url;
+		let headers = {};
+		const apiResults = await fetch(url, { method: route, mode: 'cors' }).then((response) => {
+			// or let data = await apiResults.json();
+			if (response.status !== 200) return;
+			for (let pair of response.headers.entries()) {
+				headers[pair[0]] = pair[1];
+				// this.setState({ headers: headers});
+			}
+			return response.json();
+		});
+		// console.log('API RESULTS on FORM:', apiResults, headers);
+		this.props.returnApiResults(apiResults, headers);
+	};
+
 	handleURL = (e) => {
 		let url = e.target.value;
 		this.setState({ url });
 	};
 
-	handleSelect = (e) => {
+	handleMethod = (e) => {
 		e.preventDefault();
 		let method = e.target.value;
 		this.setState({ method: method });
 	};
 
-	handleSend = (e) => {
+	handleSubmit = (e) => {
 		e.preventDefault();
 		let history = this.state.history;
 		history.push(`${this.state.method}:${this.state.url}`);
@@ -36,19 +52,19 @@ class Form extends React.Component {
 				<div>
 					<h2>
 						<input type="text" placeholder="Enter your URL" onChange={this.handleURL} />
-						<button onClick={this.handleSend}>Send</button>
+						<button onClick={this.handleSubmit}>Send</button>
 					</h2>
 
-					<button className="restb" onClick={this.handleSelect} value="GET">
+					<button className="rest-b" onClick={this.handleMethod} value="GET">
 						GET
 					</button>
-					<button className="restb" onClick={this.handleSelect} value="POST">
+					<button className="rest-b" onClick={this.handleMethod} value="POST">
 						POST
 					</button>
-					<button className="restb" onClick={this.handleSelect} value="PUT">
+					<button className="rest-b" onClick={this.handleMethod} value="PUT">
 						PUT
 					</button>
-					<button className="restb" onClick={this.handleSelect} value="DELETE">
+					<button className="rest-b" onClick={this.handleMethod} value="DELETE">
 						DELETE
 					</button>
 					<ul>{history}</ul>
