@@ -6,7 +6,7 @@ class Form extends React.Component {
 		super(props);
 		this.state = {
 			url: '',
-			rest: 'Please select an option to use:',
+			method: 'Please select an option to use',
 			history: [],
 		};
 	}
@@ -18,14 +18,14 @@ class Form extends React.Component {
 
 	handleSelect = (e) => {
 		e.preventDefault();
-		let rest = e.target.value;
-		this.setState({ rest: rest });
+		let method = e.target.value;
+		this.setState({ method: method });
 	};
 
 	handleSend = (e) => {
 		e.preventDefault();
 		let history = this.state.history;
-		history.push(`${this.state.rest}   ${this.state.url}`);
+		history.push(`${this.state.method}:${this.state.url}`);
 		this.setState({ history });
 	};
 
@@ -35,21 +35,20 @@ class Form extends React.Component {
 			<section>
 				<div>
 					<h2>
-						URL:
 						<input type="text" placeholder="Enter your URL" onChange={this.handleURL} />
 						<button onClick={this.handleSend}>Send</button>
 					</h2>
 
-					<button onClick={this.handleSelect} value="GET">
+					<button className="restb" onClick={this.handleSelect} value="GET">
 						GET
 					</button>
-					<button onClick={this.handleSelect} value="POST">
+					<button className="restb" onClick={this.handleSelect} value="POST">
 						POST
 					</button>
-					<button onClick={this.handleSelect} value="PUT">
+					<button className="restb" onClick={this.handleSelect} value="PUT">
 						PUT
 					</button>
-					<button onClick={this.handleSelect} value="DELETE">
+					<button className="restb" onClick={this.handleSelect} value="DELETE">
 						DELETE
 					</button>
 					<ul>{history}</ul>
