@@ -11,47 +11,43 @@ class Form extends React.Component {
 		};
 	}
 
-	handleURL = (e) => {
-		let url = e.target.value;
-		this.setState({ url });
-	};
-
-	handleSelect = (e) => {
+	handleMethod = (e) => {
 		e.preventDefault();
 		let method = e.target.value;
 		this.setState({ method: method });
 	};
 
-	handleSend = (e) => {
+	handleSubmit = (e) => {
 		e.preventDefault();
 		let history = this.state.history;
-		history.push(`${this.state.method}:${this.state.url}`);
+		history.push(`${this.state.method}: ${this.state.url}`);
 		this.setState({ history });
 	};
 
 	render() {
-		const history = this.state.history.map((potato) => <li>{potato}</li>);
+		const history = this.state.history.map((item, index) => <li key={index}>{item}</li>);
 		return (
 			<section>
 				<div>
-					<h2>
-						<input type="text" placeholder="Enter your URL" onChange={this.handleURL} />
-						<button onClick={this.handleSend}>Send</button>
-					</h2>
-
-					<button className="restb" onClick={this.handleSelect} value="GET">
+					<form>
+						<input type="text" placeholder="Enter your URL" onChange={(e) => this.setState({ url: e.target.value })} />
+						<button onClick={this.handleSubmit}>Send</button>
+					</form>
+					<button className="rest-b" onClick={this.handleMethod} value="Get">
 						GET
 					</button>
-					<button className="restb" onClick={this.handleSelect} value="POST">
+					<button className="rest-b" onClick={this.handleMethod} value="Post">
 						POST
 					</button>
-					<button className="restb" onClick={this.handleSelect} value="PUT">
+					<button className="rest-b" onClick={this.handleMethod} value="Put">
 						PUT
 					</button>
-					<button className="restb" onClick={this.handleSelect} value="DELETE">
+					<button className="rest-b" onClick={this.handleMethod} value="Delete">
 						DELETE
 					</button>
-					<ul>{history}</ul>
+					<div>
+						<ul>{history}</ul>
+					</div>
 				</div>
 			</section>
 		);
