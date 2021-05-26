@@ -24,12 +24,24 @@ class Form extends React.Component {
 		this.setState({ history });
 	};
 
+	handle = async (event) => {
+		event.preventDefault();
+		
+		let raw = await fetch(this.state.url, {
+				method: this.state.method
+		});
+		let data = await raw.json();
+		let count = data.count;
+
+		this.props.updateResults(JSON.stringify(data, null, 2), raw.headers, count);
+}
+
 	render() {
 		const history = this.state.history.map((item, index) => <li key={index}>{item}</li>);
 		return (
 			<section>
 				<div>
-					<form>
+				<form onSubmit={this.handle}>
 						<input type="text" placeholder="Enter your URL" onChange={(e) => this.setState({ url: e.target.value })} />
 						<button onClick={this.handleSubmit}>Send</button>
 					</form>

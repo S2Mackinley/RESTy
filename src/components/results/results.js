@@ -9,6 +9,10 @@ const Results = (props) => {
 				<>
 					<h2>Results</h2>
 					<ReactJson src={props.results} />
+					<ul>
+						<li>Count: {this.props.count}</li>
+						<li>Headers: {this.props.headers}</li>
+					</ul>
 				</>
 			</div>
 		);
