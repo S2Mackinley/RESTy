@@ -4,27 +4,41 @@ import Header from './components/header/header';
 import Footer from './components/footer/footer';
 import Form from './components/form/form';
 import Results from './components/results/results';
+import History from './components/history/history';
+
 import './app.scss';
 
 class App extends React.Component {
 	constructor(props) {
 		super(props);
-
 		this.state = {
-			count: 0,
-			results: null,
-			headers: null,
+			// count: 0,
+			headers: {},
+			results: [],
+			history: [],
+			display: false,
 		};
 	}
-	updateResults = (results, headers, count) => {
-		this.setState({ results, headers, count });
+
+	getApiResults = (apiResults, headers) => {
+		this.setState({ headers, results: apiResults });
+		if (this.state) {
+			this.setState({ display: true });
+		}
 	};
+
+	getHistory = (history) => {
+		this.setState({ history });
+	};
+
 	render() {
+		console.log('APP STATE:', this.state);
 		return (
 			<section>
 				<Header />
-				<Form updateResults={this.updateResults} />
-				<Results count={this.state.count} headers={this.state.headers} results={this.state.results} />
+				<Form returnApiResults={this.getApiResults} returnHistory={this.getHistory} />
+				<History history={this.state.history} />
+				{!this.state.display ? '' : <Results apiResults={this.state} />}
 				<Footer />
 			</section>
 		);

@@ -1,12 +1,12 @@
-import React from 'react'; 
+import React from 'react';
 import './footer.scss';
 
-class Footer extends React.Component {
-  render() {
-    return (
-      <h4>&copy; Elijah Prom </h4>
-    )
-  }
+function Footer() {
+	return (
+		<footer>
+			<p className="copyright">&copy; Elijah Prom 2021 </p>
+		</footer>
+	);
 }
 
 export default Footer;

@@ -1,1 +1,12 @@
+@import '../../design/variables.scss';
 
+header {
+	background-color: $black;
+	color: $fireOpal;
+	width: 100%;
+}
+
+h1 {
+	padding: 3rem 5rem;
+	color: $fireOpal;
+}
