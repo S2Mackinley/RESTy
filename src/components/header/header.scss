@@ -1,12 +1,37 @@
-@import '../../design/variables.scss';
-
-header {
-	background-color: $black;
-	color: $fireOpal;
-	width: 100%;
+*,
+*:before,
+*:after {
+	box-sizing: border-box;
+	margin: 0;
+	text-decoration: none;
+	list-style: none;
 }
+header {
+	h1 {
+		padding: 0;
+		line-height: 80px;
+		background-color: black;
+		color: #eeeeee;
 
-h1 {
-	padding: 3rem 5rem;
-	color: $fireOpal;
+		// text-align: center;
+	}
+
+	nav {
+		background-color: #f96a38;
+		line-height: 50px;
+		font-size: 18px;
+		ul {
+			li {
+				display: inline;
+				padding-left: 25px;
+			}
+			a {
+				color: #313131;
+			}
+		}
+	}
+}
+.active {
+	font-weight: bold;
+	color: #121212;
 }

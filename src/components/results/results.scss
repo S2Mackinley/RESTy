@@ -1,7 +1,35 @@
-@import '../../design/variables.scss';
+.main-content {
+	display: flex;
+	justify-content: center;
+	align-content: center;
+	width: 100%;
+	height: 750px;
+	background-color: #d4d4d4;
+	border: #a9a9a9 solid 1px;
+	padding: 10px;
+}
 
-#api-results {
-	background: $forestGreen;
-	width: 80%;
-	margin: 0 auto;
+.history {
+	width: 45%;
+}
+
+.json-content {
+	width: 50%;
+	border: 2px solid #312e32;
+	overflow: auto;
+}
+
+.url {
+	cursor: pointer;
+	border: none;
+	background: transparent;
+	text-decoration: none;
+}
+
+ul {
+	list-style: none;
+}
+
+li {
+	margin: 10px;
 }

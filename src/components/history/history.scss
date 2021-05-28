@@ -1,11 +1,9 @@
-@import '../../design/variables.scss';
+ul {
+	list-style: none;
+	color: white;
+}
 
-#history {
-	background-color: $black;
-	color: $forestGreen;
-	width: 100%;
-	text-align: center;
-	text-decoration: none;
-	margin: 0 auto;
-	// padding: 1rem;
+li {
+	margin: 10px;
+	color: white;
 }

@@ -1,46 +1,122 @@
-import React from 'react';
+import React, { Component } from 'react';
+
+import axios from 'axios';
 
 import Header from './components/header/header';
-import Footer from './components/footer/footer';
 import Form from './components/form/form';
+import Footer from './components/footer/footer';
 import Results from './components/results/results';
 import History from './components/history/history';
+import Help from './components/help/Help';
+import { BrowserRouter as Router, Route } from 'react-router-dom';
 
-import './app.scss';
+class App extends Component {
+	state = {
+		url: '',
+		method: '',
+		headers: '',
+		results: '',
+		history: [],
+		data: '',
+		body: '',
+		loading: false,
+	};
 
-class App extends React.Component {
-	constructor(props) {
-		super(props);
-		this.state = {
-			// count: 0,
-			headers: {},
-			results: [],
-			history: [],
-			display: false,
-		};
+	componentDidMount() {
+		const items = localStorage.getItem('history') ? localStorage.getItem('history') : null;
+		if (!items) {
+			return;
+		}
+
+		const history = JSON.parse(items);
+
+		this.setState({
+			...this.state,
+			history: history,
+		});
 	}
 
-	getApiResults = (apiResults, headers) => {
-		this.setState({ headers, results: apiResults });
-		if (this.state) {
-			this.setState({ display: true });
+	submitHandler = async (e) => {
+		e.preventDefault();
+		console.log('Submit being hit');
+		this.setState({ ...this.state, loading: true });
+		try {
+			const response = await axios({
+				method: this.state.method || 'get',
+				url: this.state.url,
+				data: this.state.body ? JSON.parse(this.state.body) : {},
+			});
+
+			if (this.state.url && this.state.method) {
+				this.setState({
+					...this.state,
+					headers: response.headers,
+					results: response.data,
+					history: [
+						{
+							url: this.state.url,
+							method: this.state.method,
+							record: response,
+						},
+						...this.state.history,
+					],
+				});
+				this.setState({ ...this.state, loading: false });
+			}
+			// save to local storage
+			localStorage.setItem('history', JSON.stringify(this.state.history));
+
+			this.setState({ ...this.state, url: '', method: '' });
+		} catch (e) {
+			console.error(e);
 		}
 	};
 
-	getHistory = (history) => {
-		this.setState({ history });
+	clickHandler = (e) => {
+		console.log(e.target.value);
+		let words = e.target.value.split(' ');
+		console.log(words);
+		this.setState({ ...this.state, url: words[1], method: words[0] });
+	};
+
+	historyHandler = (data) => {
+		this.setState({ ...this.state, data: data });
+	};
+
+	changeHandler = (e) => {
+		this.setState({ [e.target.name]: e.target.value });
 	};
 
 	render() {
-		console.log('APP STATE:', this.state);
 		return (
-			<section>
-				<Header />
-				<Form returnApiResults={this.getApiResults} returnHistory={this.getHistory} />
-				<History history={this.state.history} />
-				{!this.state.display ? '' : <Results apiResults={this.state} />}
-				<Footer />
-			</section>
+			<Router>
+				<div>
+					<Header />
+					<Route exact path="/">
+						<Form
+							submitHandler={this.submitHandler}
+							changeHandler={this.changeHandler}
+							url={this.state.url}
+							method={this.state.method}
+						/>
+						<Results
+							headers={this.state.headers}
+							results={this.state.results}
+							final={this.state.final}
+							clickHandler={this.clickHandler}
+							history={this.state.history}
+							loading={this.state.loading}
+						/>
+					</Route>
+					<Route exact path="/history">
+						<History history={this.state.history} historyHandler={this.historyHandler} data={this.state.data} />
+					</Route>
+					<Route exact path="/help">
+						<Help />
+					</Route>
+					<Footer />
+				</div>
+			</Router>
 		);
 	}
 }

@@ -1,33 +1,31 @@
-@import '../../design/variables.scss';
+.form-div {
+	width: 20%;
+	margin-left: 2rem;
+}
+textarea {
+	max-width: 100%;
+}
+
+.radio-container input[type='radio'] {
+	visibility: hidden;
+}
+
+.radio-container input[type='radio']:checked + label,
+.Checked + label {
+	background-color: #f96a38;
+	color: black;
+}
+
+.radio-container label {
+	background-color: black;
+	color: white;
+}
 
 form {
-	background-color: $black;
-	height: 5vh;
-}
-
-input {
-	background: $fireOpal;
-	color: $black;
-	padding: 1rem;
-	margin: 0.5rem;
-}
-
-button {
-	background: $fireOpal;
-	color: $black;
-	// padding: 1rem;
-	margin: 0.5rem;
-}
-
-#form-stuff {
-	margin: 5rem;
-}
-
-form #url-submit {
 	display: flex;
-	justify-content: space-between;
+	flex-direction: column;
 }
-
-h2 {
-	color: $forestGreen;
+body {
+	background: black;
+	color: white;
 }

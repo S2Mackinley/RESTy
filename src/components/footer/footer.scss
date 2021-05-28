@@ -1,14 +1,7 @@
-@import '../../design/variables.scss';
-
-footer {
-	background-color: $black;
-	color: $fireOpal;
-	padding: 0.5rem;
-	width: 100%;
-	margin-top: 35rem;
-}
-
-.copyright {
-	text-align: center;
-	color: $fireOpal;
+.footer {
+	display: flex;
+	justify-content: center;
+	background-color: #f96a38;
+	color: black;
+	margin-top: 20px;
 }
