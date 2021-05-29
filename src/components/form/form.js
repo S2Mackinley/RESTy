@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-
+import { FaSearch } from 'react-icons/fa';
 import './form.scss';
 
 class Form extends Component {
@@ -7,13 +7,21 @@ class Form extends Component {
 		return (
 			<div className="form-div">
 				<form data-testid="api-form" onSubmit={this.props.submitHandler}>
-					<label htmlFor="url"> URL: </label>
-					<input data-testid="url" type="text" name="url" value={this.props.url} onChange={this.props.changeHandler} />
-					<div className="txt-area">
-						<label htmlFor="body">Body:</label>
-						<textarea id="body" onChange={this.props.changeHandler} data-testid="body" name="body" cols="57" rows="5"></textarea>
+					<div className="url">
+						<label htmlFor="url"> URL: &nbsp; </label>
+						<input
+							data-testid="url"
+							type="text"
+							name="url"
+							value={this.props.url}
+							onChange={this.props.changeHandler}
+						/>
+						&nbsp;
+						<button>
+							{' '}
+							<FaSearch></FaSearch>{' '}
+						</button>
 					</div>
-					<button> GO! </button>
 					<div className="radio-container">
 						<input
 							data-testid="get"
@@ -56,21 +64,20 @@ class Form extends Component {
 						/>
 						<label htmlFor="delete"> DELETE </label>
 					</div>
+					<div className="txt-area">
+						<label htmlFor="body">Body:</label>
+						<br></br>
+						<br></br>
+						<textarea
+							id="body"
+							onChange={this.props.changeHandler}
+							data-testid="body"
+							name="body"
+							cols="57"
+							rows="5"
+						></textarea>
+					</div>
 				</form>
-
-				{/* <div className='main-content'>
-          <div className='history'>{this.props.final}</div>
-          <div className='json-content'>
-            {this.props.results ? (
-              <Results
-                headers={this.props.headers}
-                results={this.props.results}
-              />
-            ) : (
-              ""
-            )}
-          </div>
-        </div> */}
 			</div>
 		);
 	}

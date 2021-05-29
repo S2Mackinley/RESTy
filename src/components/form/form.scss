@@ -1,18 +1,20 @@
 .form-div {
-	width: 20%;
 	margin-left: 2rem;
+	// display: flex;
 }
 textarea {
 	max-width: 100%;
+	height: 10rem;
 }
 
 .radio-container input[type='radio'] {
 	visibility: hidden;
+	padding: 2rem;
 }
 
 .radio-container input[type='radio']:checked + label,
 .Checked + label {
-	background-color: #f96a38;
+	background-color: white;
 	color: black;
 }
 
@@ -20,12 +22,26 @@ textarea {
 	background-color: black;
 	color: white;
 }
-
-form {
-	display: flex;
-	flex-direction: column;
+button {
+	padding: 0.2rem 1.2rem;
 }
 body {
 	background: black;
 	color: white;
+}
+button {
+	background: #ffa31a;
+}
+.radio-container {
+	margin-left: -1rem;
+	padding: 1rem 0;
+}
+.url {
+	margin-top: 2rem;
+}
+.txt-area {
+	margin: 1.5rem 0;
+}
+div.main-content {
+	background: black;
 }
